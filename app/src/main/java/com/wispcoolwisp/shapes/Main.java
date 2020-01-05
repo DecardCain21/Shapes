@@ -1,5 +1,7 @@
 package com.wispcoolwisp.shapes;
 
+import android.graphics.Color;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -78,12 +80,22 @@ public class Main {
 
         //А здесь я явно говорю компилятору, что someRectangle является квадратом.
         //Но за такое нисходящее преобразование отвечает программист.
-        double diagonal = ((Rectangle)someRectangle).getDiagonals();
+        double diagonal = ((Rectangle) someRectangle).getDiagonals();
 
         Shape someShape = new Circle(9);
         //Здесь я тоже делаю нисходящее преобразование и тоже могу вызвать метод getDiagonals().
-        //Компилятор мне доверяет, но когда программа попытается это сделать, она упадет, потому что по факту там круг, а не квадрат
+        //Компилятор мне доверяет, но когда программа попытается это сделать, она упадет,
+        // потому что по факту там круг, а не квадрат
         //double someDiagonal = ((Rectangle)someShape).getDiagonals();
+
+
+        ///////////////////////////////////////////////////////////////////////////////////////////
+        Shape colorShape = new Circle(10);
+        //Вот тут я могу разными способами задавать цвет своей фигуры.
+        //Тем самым у меня есть один перегруженный метод который принимает на вход разные параметры
+        //Для удобства работы
+        colorShape.setColor(Color.RED);
+        colorShape.setColor("#519c3f");
     }
 
     //Вот тут я инкапсулировал локигу вывода на экран площадей фигур
@@ -104,10 +116,12 @@ public class Main {
     private static void getShapeType(List<Shape> shapes) {
         for (int i = 0; i < shapes.size(); i++) {
             Shape shape = shapes.get(i);
-//            shape.getDiagonals(); Error, тут компилятор не знает квадрат ли это. Если к примеру тут будет круг, то программа упадет
+//            shape.getDiagonals(); Error, тут компилятор не знает квадрат ли это.
+//            Если к примеру тут будет круг, то программа упадет
             if (shape instanceof Rectangle) {
                 //Нисходящее преобразование. Должно приводится явно
-                ((Rectangle) shape).getDiagonals();//OK Так как ты проверил выше, что shape это квадрат и ты можешь вызывать методы квадрата
+                ((Rectangle) shape).getDiagonals();//OK Так как ты проверил выше, что shape это квадрат
+                // и ты можешь вызывать методы квадрата
                 System.out.println("Shape by index " + i + " is Rectangle");
             } else if (shape instanceof Circle) {
                 System.out.println("Shape by index " + i + " is Circle");
